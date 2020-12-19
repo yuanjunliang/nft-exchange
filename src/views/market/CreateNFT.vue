@@ -15,14 +15,17 @@
       <el-form-item label="类别哈希">
         <el-input :rows="4" v-model="form.categoryHash"></el-input>
       </el-form-item>
-      <el-form-item label="转出地址">
-        <el-input :rows="4" v-model="form.to"></el-input>
-      </el-form-item>
-      <el-form-item label="NFT哈希">
-        <el-input :rows="4" v-model="form.nftHash"></el-input>
-      </el-form-item>
+<!--      <el-form-item label="转出地址">-->
+<!--        <el-input :rows="4" v-model="form.to"></el-input>-->
+<!--      </el-form-item>-->
+<!--      <el-form-item label="NFT哈希">-->
+<!--        <el-input :rows="4" v-model="form.nftHash"></el-input>-->
+<!--      </el-form-item>-->
       <el-form-item label="说明">
         <el-input type="textarea" :rows="4" v-model="form.desc"></el-input>
+      </el-form-item>
+      <el-form-item label="价格">
+        <el-input :rows="4" v-model="form.price"></el-input>
       </el-form-item>
       <el-form-item>
         <div class="form-btn">
@@ -38,19 +41,29 @@ export default {
   data() {
     return {
       form: {
-        orginData: '', // 元数据
+        metaData: '', // 元数据
         desc: '', // 说明
         categoryHash: '',
-        to: '', // 转出地址
-        nftHash: '', // NFT哈希
+        price: '',
+        // to: '', // 转出地址
+        // nftHash: '', // NFT哈希
       },
     };
   },
   methods: {
+    handlePictureCardPreview(){},
+    handleRemove(){},
     handleCreateNFT() {
-      console.log('handleCreateNFT');
-      this.$message.success('创建成功');
-      this.$router.push('/');
+      console.log('#handleCreateNFT');
+      this.form.metaData = 'dasda'
+      this.$Nft.NFT_Add(
+        this.form,
+        (res)=>{
+          console.log(res)
+          this.$message.success('创建成功');
+          this.$router.push('/');
+        }
+      )
     },
   },
 };
