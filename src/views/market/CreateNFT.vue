@@ -4,24 +4,32 @@
       <el-form-item label="元数据">
         <div>
           <el-upload
-            action="https://jsonplaceholder.typicode.com/posts/"
+            action="/hack"
+            auto-upload
             list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove">
+            @onSuccess="handleUpload"
+          >
             <i class="el-icon-plus"></i>
           </el-upload>
         </div>
       </el-form-item>
       <el-form-item label="类别哈希">
-        <el-input :rows="4" v-model="form.categoryHash"></el-input>
+        <el-select v-model="form.categoryHash" placeholder="请选择">
+          <el-option
+            v-for="item in categoryList"
+            :key="item"
+            :label="item"
+            :value="item">
+          </el-option>
+        </el-select>
       </el-form-item>
-<!--      <el-form-item label="转出地址">-->
-<!--        <el-input :rows="4" v-model="form.to"></el-input>-->
-<!--      </el-form-item>-->
-<!--      <el-form-item label="NFT哈希">-->
-<!--        <el-input :rows="4" v-model="form.nftHash"></el-input>-->
-<!--      </el-form-item>-->
       <el-form-item label="说明">
+      <el-form-item label="转出地址">
+        <el-input :rows="4" v-model="form.to"></el-input>
+      </el-form-item>
+      <el-form-item label="NFT哈希">
+        <el-input :rows="4" v-model="form.nftHash"></el-input>
+      </el-form-item>
         <el-input type="textarea" :rows="4" v-model="form.desc"></el-input>
       </el-form-item>
       <el-form-item label="价格">
@@ -45,17 +53,25 @@ export default {
         desc: '', // 说明
         categoryHash: '',
         price: '',
-        // to: '', // 转出地址
-        // nftHash: '', // NFT哈希
+        to: '', // 转出地址
+        nftHash: '', // NFT哈希
       },
+      categoryList:[]
     };
   },
+  mounted(){
+    this.getList()
+  },
   methods: {
-    handlePictureCardPreview(){},
-    handleRemove(){},
+    async getList(){
+      this.categoryList = await this.$Nft.Category_IdList() || []
+    },
+    handleUpload(response){
+      console.log('handleUpload',response);
+    },
     handleCreateNFT() {
       console.log('#handleCreateNFT');
-      this.form.metaData = 'dasda'
+      this.form.metaData = 'ipfs.io/ipfs/QmRVxd8dRDa2bTD3tm4teT7XEdSHozo9na1EGswLmFtYpU'
       this.$Nft.NFT_Add(
         this.form,
         (res)=>{
