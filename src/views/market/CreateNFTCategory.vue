@@ -21,6 +21,7 @@
       <el-form-item>
         <div class="form-btn">
           <el-button type="primary" @click="handleCreateNFTCategory">创建</el-button>
+          <el-button type="primary" @click="getList">列表</el-button>
         </div>
       </el-form-item>
     </el-form>
@@ -39,10 +40,22 @@ export default {
     };
   },
   methods: {
+    handlePictureCardPreview(){},
+    handleRemove(){},
+    async getList(){
+      let list = await this.$Nft.Category_IdList() || []
+      console.log(list)
+    },
     handleCreateNFTCategory() {
-      console.log('handleCreateNFTCategory');
-      this.$message.success('创建成功');
-      this.$router.push('/');
+      console.log('#handleCreateNFTCategory');
+      this.$Nft.Category_Add(
+         this.form,
+        (res)=>{
+          console.log(res)
+          this.$message.success('创建成功');
+          this.$router.push('/');
+        }
+      )
     },
   },
 };
