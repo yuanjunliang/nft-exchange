@@ -2,6 +2,8 @@
   <div class="page-header">
     <span class="header-title" @click="handleGoHome">NFT交易市场</span>
     <div class="header-right">
+      <el-button type="primary" plain @click="handleToMarket">交易大厅</el-button>
+      <el-button type="primary" plain @click="handkeToAuction">拍卖中心</el-button>
       <span class="connect-wallet-btn">连接钱包</span>
     </div>
   </div>
@@ -12,6 +14,12 @@ export default {
   methods: {
     handleGoHome() {
       this.$router.push('/');
+    },
+    handleToMarket() {
+      this.$router.push('/');
+    },
+    handkeToAuction() {
+      this.$router.push('/auction');
     },
   },
 };
@@ -42,6 +50,7 @@ export default {
       line-height: 46px;
       border-radius: 25px;
       cursor: pointer;
+      margin-left: 20px;
     }
   }
 }

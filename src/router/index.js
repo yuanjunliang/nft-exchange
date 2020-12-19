@@ -12,8 +12,8 @@ const routes = [
     children: [
       {
         path: '/',
-        name: 'home',
-        component: () => import('../views/Home.vue'),
+        name: 'market',
+        component: () => import('../views/market/index.vue'),
       },
       {
         path: '/detail',
@@ -29,6 +29,26 @@ const routes = [
         path: '/createnftcategory',
         name: 'createnftcategory',
         component: () => import('../views/market/CreateNFTCategory.vue'),
+      },
+      {
+        path: '/auction',
+        name: 'auction',
+        component: () => import('../views/auction/index.vue'),
+      },
+      {
+        path: '/adetail',
+        name: 'adetail',
+        component: () => import('../views/auction/ProjectDetail.vue'),
+      },
+      {
+        path: '/acreatenft',
+        name: 'acreatenft',
+        component: () => import('../views/auction/CreateNFT.vue'),
+      },
+      {
+        path: '/acreatenftcategory',
+        name: 'acreatenftcategory',
+        component: () => import('../views/auction/CreateNFTCategory.vue'),
       },
     ],
   },
