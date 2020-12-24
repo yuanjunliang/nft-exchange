@@ -18,7 +18,8 @@
           <span>{{dapp.tokenId}}</span>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleBuy">立即购买</el-button>
+          <el-button v-if="!is_bought" type="primary" @click="handleBuy">立即购买</el-button>
+          <el-button v-else type="primary" @click="handleTax">交税</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -33,11 +34,34 @@ export default {
       return query;
     },
   },
+  data(){
+    return {
+      is_bought: false
+    }
+  },
   methods: {
     handleBuy() {
-      this.$message.success('购买成功');
-      this.$router.push('/');
+      this.$Nft.NFT_Buy(
+        this.dapp.tokenId,
+        (res)=>{
+          if(res.code === 0){
+            this.$message.success('购买成功');
+            this.is_bought = true
+          }
+        }
+      )
     },
+    handleTax() {
+      this.$Nft.NFT_Tax(
+        this.dapp.tokenId,
+        (res)=>{
+          if(res.code === 0){
+            this.$message.success('交税成功');
+            this.$router.push({ name: 'auction' });
+          }
+        }
+      )
+    }
   },
 };
 </script>

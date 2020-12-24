@@ -26,6 +26,9 @@ import HeadMenu from './HeadMenu.vue';
 import ProjectCard from './ProjectCard.vue';
 
 export default {
+  mounted() {
+    this.$store.commit('setAccountIndex',0)
+  },
   components: {
     SideBar,
     HeadMenu,

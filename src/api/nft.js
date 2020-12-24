@@ -104,7 +104,7 @@ export default class Nft {
       PALLET_NAME,
       'createClass',
       callBack,
-      form.orginData,
+      stringToHex(form.originData),
       form.totalSupply,
       stringToHex(form.desc)
     )

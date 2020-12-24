@@ -4,7 +4,7 @@
     <div class="header-right">
       <el-button type="primary" plain @click="handleToMarket">交易大厅</el-button>
       <el-button type="primary" plain @click="handkeToAuction">拍卖中心</el-button>
-      <span class="connect-wallet-btn">连接钱包</span>
+<!--      <span class="connect-wallet-btn">连接钱包</span>-->
     </div>
   </div>
 </template>

@@ -29,7 +29,8 @@ export default class BaseApi {
     // // meta.source contains the name of the extension that provides this account
 
     // // finds an injector for an address
-    const sender = allAccounts[0].address
+    let {accountIndex} = chainState.state.accountIndex
+    const sender = allAccounts[accountIndex].address
 
     const injector = await web3FromAddress(sender)
 

@@ -6,14 +6,13 @@
           <el-upload
             action="https://jsonplaceholder.typicode.com/posts/"
             list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove">
+          >
             <i class="el-icon-plus"></i>
           </el-upload>
         </div>
       </el-form-item>
       <el-form-item label="总发行量">
-        <el-input v-model="form.totalSupply"></el-input>
+        <el-input-number v-model.number="form.totalSupply"></el-input-number>
       </el-form-item>
       <el-form-item label="说明">
         <el-input type="textarea" :rows="4" v-model="form.desc"></el-input>
@@ -21,7 +20,6 @@
       <el-form-item>
         <div class="form-btn">
           <el-button type="primary" @click="handleCreateNFTCategory">创建</el-button>
-          <el-button type="primary" @click="getList">列表</el-button>
         </div>
       </el-form-item>
     </el-form>
@@ -33,27 +31,21 @@ export default {
   data() {
     return {
       form: {
-        orginData: '', // 元数据
+        originData: 'ipfs.io/ipfs/QmRVxd8dRDa2bTD3tm4teT7XEdSHozo9na1EGswLmFtYpU', // 元数据
         totalSupply: 0, // 总发行量
         desc: '', // 说明
       },
     };
   },
   methods: {
-    handlePictureCardPreview(){},
-    handleRemove(){},
-    async getList(){
-      let list = await this.$Nft.Category_IdList() || []
-      console.log(list)
-    },
     handleCreateNFTCategory() {
-      console.log('#handleCreateNFTCategory');
       this.$Nft.Category_Add(
          this.form,
         (res)=>{
-          console.log(res)
-          this.$message.success('创建成功');
-          this.$router.push('/');
+          if(res.code === 0){
+            this.$message.success('创建成功');
+            this.$router.push({ name: 'market' });
+          }
         }
       )
     },

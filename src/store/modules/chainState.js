@@ -20,21 +20,21 @@ const apiPlugin = async (store) => {
     //  chain api instance
     const apiPromise = await ApiPromise.create({ provider, types })
     const isReady = apiPromise.isReady.then(async () => {
-      console.log('Connect Success',apiUrl);
+      console.log('Chain Connect Success : ',apiUrl);
       store.state.Api = apiPromise
       store.state.apiUrl = apiUrl
 
       //  sync bestNumber
       await apiPromise.derive.chain.bestNumber(
         (value) => {
-          console.log('#bestNumber',value.toNumber());
+          // console.log('#bestNumber',value.toNumber());
           store.state.bestNumber = value.toNumber()
         }
       )
       //  sync bestNumberFinalized
       await apiPromise.derive.chain.bestNumberFinalized(
         (value) => {
-          console.log('#bestNumberFinalized',value.toNumber());
+          // console.log('#bestNumberFinalized',value.toNumber());
           store.state.bestNumberFinalized = value.toNumber()
         }
       )
@@ -51,11 +51,16 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     apiUrl: conf.Chain_Api_Url,
+    accountIndex: 0,
     Api: null,
     bestNumber: 0,
     bestNumberFinalized: 0
   },
-  mutations: {},
+  mutations: {
+    setAccountIndex(state, index){
+      state.accountIndex = index || 0
+    }
+  },
   modules: {},
   plugins: [apiPlugin]
 })

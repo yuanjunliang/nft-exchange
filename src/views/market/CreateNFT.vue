@@ -24,16 +24,10 @@
         </el-select>
       </el-form-item>
       <el-form-item label="说明">
-      <el-form-item label="转出地址">
-        <el-input :rows="4" v-model="form.to"></el-input>
-      </el-form-item>
-      <el-form-item label="NFT哈希">
-        <el-input :rows="4" v-model="form.nftHash"></el-input>
-      </el-form-item>
         <el-input type="textarea" :rows="4" v-model="form.desc"></el-input>
       </el-form-item>
       <el-form-item label="价格">
-        <el-input :rows="4" v-model="form.price"></el-input>
+        <el-input-number :rows="4" v-model.number="form.price"></el-input-number>
       </el-form-item>
       <el-form-item>
         <div class="form-btn">
@@ -49,12 +43,10 @@ export default {
   data() {
     return {
       form: {
-        metaData: '', // 元数据
+        metaData: 'ipfs.io/ipfs/QmRVxd8dRDa2bTD3tm4teT7XEdSHozo9na1EGswLmFtYpU', // 元数据
         desc: '', // 说明
         categoryHash: '',
-        price: '',
-        to: '', // 转出地址
-        nftHash: '', // NFT哈希
+        price: ''
       },
       categoryList:[]
     };
@@ -70,14 +62,13 @@ export default {
       console.log('handleUpload',response);
     },
     handleCreateNFT() {
-      console.log('#handleCreateNFT');
-      this.form.metaData = 'ipfs.io/ipfs/QmRVxd8dRDa2bTD3tm4teT7XEdSHozo9na1EGswLmFtYpU'
       this.$Nft.NFT_Add(
         this.form,
         (res)=>{
-          console.log(res)
-          this.$message.success('创建成功');
-          this.$router.push('/');
+          if(res.code === 0){
+            this.$message.success('创建成功');
+            this.$router.push({ name: 'market' });
+          }
         }
       )
     },
