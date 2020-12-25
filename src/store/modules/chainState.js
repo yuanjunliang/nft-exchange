@@ -51,16 +51,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     apiUrl: conf.Chain_Api_Url,
-    accountIndex: 0,
     Api: null,
     bestNumber: 0,
     bestNumberFinalized: 0
   },
-  mutations: {
-    setAccountIndex(state, index){
-      state.accountIndex = index || 0
-    }
-  },
-  modules: {},
   plugins: [apiPlugin]
 })
