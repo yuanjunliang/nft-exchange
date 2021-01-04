@@ -14,11 +14,17 @@
         <el-form-item label="ID">
           <span>{{dapp.tokenId}}</span>
         </el-form-item>
-        <el-form-item label="价格">
-          <el-input-number v-model.number="new_price"></el-input-number>
+        <el-form-item label="状态">
+          <span>{{dapp.status}}</span>
+        </el-form-item>
+        <el-form-item label="原价(Unit)">
+          <span>{{dapp.price}} unit</span>
+        </el-form-item>
+        <el-form-item label="新价格(Unit)">
+          <el-input v-model.number="new_price"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleBuy">立即出售</el-button>
+          <el-button :loading="loading" type="primary" @click="handleBuy">立即出售</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -35,17 +41,20 @@ export default {
   },
   data() {
     return {
+      loading:false,
       new_price: 0
     }
   },
   methods: {
     handleBuy() {
+      this.loading = true
       this.$Nft.NFT_Offer(
         {
           nft_id:this.dapp.tokenId,
           price: this.new_price
         },
         (res)=>{
+          this.loading = false
           if(res.code === 0){
             this.$message.success('出售成功');
             this.$router.push({ name: 'market' });
@@ -53,6 +62,17 @@ export default {
         }
       )
     },
+    handleTax() {
+      this.$Nft.NFT_Tax(
+        this.dapp.tokenId,
+        (res)=>{
+          if(res.code === 0){
+            this.$message.success('交税成功');
+            this.$router.push({ name: 'market' });
+          }
+        }
+      )
+    }
   },
 };
 </script>

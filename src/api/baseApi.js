@@ -29,7 +29,7 @@ export default class BaseApi {
     // // meta.source contains the name of the extension that provides this account
 
     // // finds an injector for an address
-    let {accountIndex} = chainState.state.accountIndex
+    let accountIndex = Number(localStorage.getItem('accountIndex')||0)
     const sender = allAccounts[accountIndex].address
 
     const injector = await web3FromAddress(sender)
@@ -104,15 +104,17 @@ export default class BaseApi {
                   result.status.isInBlock,
                   result.status.isFinalized
                 )
-                return _callBack({
-                  code: 0,
-                  msg: 'ExtrinsicSuccess',
-                  hash: hash.toString(),
-                  result: {
-                    isInBlock: result.status.isInBlock,
-                    isFinalized: result.status.isFinalized
-                  }
-                })
+                if(result.status.isInBlock){
+                  return _callBack({
+                    code: 0,
+                    msg: 'ExtrinsicSuccess',
+                    hash: hash.toString(),
+                    result: {
+                      isInBlock: result.status.isInBlock,
+                      isFinalized: result.status.isFinalized
+                    }
+                  })
+                }
               }
             })
         } else if (result.isError) {

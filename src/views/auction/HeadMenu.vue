@@ -5,10 +5,10 @@
       <span :class="{'selected': selected === 'selllist'}" @click="handleSelect('selllist')">销售记录</span>
       <span :class="{'selected': selected === 'myselllist'}" @click="handleSelect('myselllist')">我的购买记录</span>
     </div>
-    <div>
-      <el-button @click="handleCreateNFT">创建NFT</el-button>
-      <el-button @click="handleCteateNFTCategory">创建NFT类别</el-button>
-    </div>
+<!--    <div>-->
+<!--      <el-button @click="handleCreateNFT">创建NFT</el-button>-->
+<!--      <el-button @click="handleCteateNFTCategory">创建NFT类别</el-button>-->
+<!--    </div>-->
   </div>
 </template>
 

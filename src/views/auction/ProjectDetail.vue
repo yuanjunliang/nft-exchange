@@ -8,18 +8,20 @@
         <el-form-item label="名称">
           <span>{{dapp.name}}</span>
         </el-form-item>
-        <el-form-item label="价格">
+        <el-form-item label="价格(Unit)">
           <span>{{dapp.price}}</span>
         </el-form-item>
         <el-form-item label="说明">
           <span>{{dapp.desc}}</span>
         </el-form-item>
+        <el-form-item label="状态">
+          <span>{{dapp.status}}</span>
+        </el-form-item>
         <el-form-item label="ID">
           <span>{{dapp.tokenId}}</span>
         </el-form-item>
         <el-form-item>
-          <el-button v-if="!is_bought" type="primary" @click="handleBuy">立即购买</el-button>
-          <el-button v-else type="primary" @click="handleTax">交税</el-button>
+          <el-button :loading="loading" type="primary" @click="handleBuy">立即购买</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -34,30 +36,22 @@ export default {
       return query;
     },
   },
-  data(){
+  data() {
     return {
-      is_bought: false
+      loading:false
     }
   },
   methods: {
     handleBuy() {
+      this.loading = true
       this.$Nft.NFT_Buy(
         this.dapp.tokenId,
         (res)=>{
+          this.loading = false
           if(res.code === 0){
-            this.$message.success('购买成功');
-            this.is_bought = true
-          }
-        }
-      )
-    },
-    handleTax() {
-      this.$Nft.NFT_Tax(
-        this.dapp.tokenId,
-        (res)=>{
-          if(res.code === 0){
-            this.$message.success('交税成功');
-            this.$router.push({ name: 'auction' });
+            this.$message.success('购买成功')
+          }else {
+            this.$message.error(res.msg);
           }
         }
       )

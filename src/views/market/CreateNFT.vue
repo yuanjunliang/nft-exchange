@@ -5,9 +5,8 @@
         <div>
           <el-upload
             action="/hack"
-            auto-upload
+            :auto-upload="false"
             list-type="picture-card"
-            @onSuccess="handleUpload"
           >
             <i class="el-icon-plus"></i>
           </el-upload>
@@ -27,11 +26,11 @@
         <el-input type="textarea" :rows="4" v-model="form.desc"></el-input>
       </el-form-item>
       <el-form-item label="价格">
-        <el-input-number :rows="4" v-model.number="form.price"></el-input-number>
+        <el-input v-model.number="form.price"></el-input>
       </el-form-item>
       <el-form-item>
         <div class="form-btn">
-          <el-button type="primary" @click="handleCreateNFT">创建</el-button>
+          <el-button :loading="loading" type="primary" @click="handleCreateNFT">创建</el-button>
         </div>
       </el-form-item>
     </el-form>
@@ -42,6 +41,7 @@
 export default {
   data() {
     return {
+      loading:false,
       form: {
         metaData: 'ipfs.io/ipfs/QmRVxd8dRDa2bTD3tm4teT7XEdSHozo9na1EGswLmFtYpU', // 元数据
         desc: '', // 说明
@@ -58,13 +58,12 @@ export default {
     async getList(){
       this.categoryList = await this.$Nft.Category_IdList() || []
     },
-    handleUpload(response){
-      console.log('handleUpload',response);
-    },
     handleCreateNFT() {
+      this.loading = true
       this.$Nft.NFT_Add(
         this.form,
         (res)=>{
+          this.loading = false
           if(res.code === 0){
             this.$message.success('创建成功');
             this.$router.push({ name: 'market' });

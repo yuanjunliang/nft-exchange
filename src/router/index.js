@@ -50,6 +50,11 @@ const routes = [
         name: 'acreatenftcategory',
         component: () => import('../views/auction/CreateNFTCategory.vue'),
       },
+      {
+        path: '/tax',
+        name: 'TaxList',
+        component: () => import('../views/tax/TaxList.vue'),
+      },
     ],
   }
 ];

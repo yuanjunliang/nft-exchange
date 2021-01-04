@@ -6,7 +6,8 @@
     <div class="card-bottom">
       <span class="card-bottom-name">{{dapp.name}}</span>
       <span class="card-bottom-desc">{{dapp.desc}}</span>
-      <span class="card-bottom-price">{{dapp.price}}</span>
+      <span class="card-bottom-desc">{{dapp.status}}</span>
+      <span class="card-bottom-price">{{dapp.price}}Unit</span>
       <div class="card-bottom-btn" @click="handleBuy">查看详情</div>
     </div>
   </div>
@@ -24,7 +25,7 @@ export default {
     },
   },
   mounted() {
-    console.log({ dapp: this.dapp });
+    // console.log({ dapp: this.dapp });
   },
   methods: {
     handleBuy() {
@@ -37,7 +38,7 @@ export default {
 <style lang="less">
 .project-card {
   width: 261px;
-  height: 369px;
+  height: 383px;
   background-color: #ffffff;
   margin: 5px;
   display: flex;
