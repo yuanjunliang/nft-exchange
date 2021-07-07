@@ -3,8 +3,9 @@
     <span class="header-title" @click="handleGoHome">NFT交易市场</span>
     <div class="header-right">
       <el-button type="primary" plain @click="handleToMarket">交易大厅</el-button>
-      <el-button type="primary" plain @click="handkeToAuction">拍卖中心</el-button>
-      <span class="connect-wallet-btn">连接钱包</span>
+      <el-button type="primary" plain @click="handleToAuction">拍卖中心</el-button>
+      <el-button type="primary" plain @click="handleToTax">交税中心</el-button>
+<!--      <span class="connect-wallet-btn">连接钱包</span>-->
     </div>
   </div>
 </template>
@@ -18,8 +19,13 @@ export default {
     handleToMarket() {
       this.$router.push('/');
     },
-    handkeToAuction() {
+    handleToAuction() {
       this.$router.push('/auction');
+    },
+    handleToTax() {
+      this.$router.push({
+        name:'TaxList'
+      });
     },
   },
 };

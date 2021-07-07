@@ -8,17 +8,20 @@
         <el-form-item label="名称">
           <span>{{dapp.name}}</span>
         </el-form-item>
-        <el-form-item label="价格">
+        <el-form-item label="价格(Unit)">
           <span>{{dapp.price}}</span>
         </el-form-item>
         <el-form-item label="说明">
           <span>{{dapp.desc}}</span>
         </el-form-item>
+        <el-form-item label="状态">
+          <span>{{dapp.status}}</span>
+        </el-form-item>
         <el-form-item label="ID">
           <span>{{dapp.tokenId}}</span>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleBuy">立即购买</el-button>
+          <el-button :loading="loading" type="primary" @click="handleBuy">立即购买</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -33,11 +36,26 @@ export default {
       return query;
     },
   },
+  data() {
+    return {
+      loading:false
+    }
+  },
   methods: {
     handleBuy() {
-      this.$message.success('购买成功');
-      this.$router.push('/');
-    },
+      this.loading = true
+      this.$Nft.NFT_Buy(
+        this.dapp.tokenId,
+        (res)=>{
+          this.loading = false
+          if(res.code === 0){
+            this.$message.success('购买成功')
+          }else {
+            this.$message.error(res.msg);
+          }
+        }
+      )
+    }
   },
 };
 </script>
